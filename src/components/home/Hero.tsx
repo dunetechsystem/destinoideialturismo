@@ -51,9 +51,9 @@ export function Hero({
   const side = images[(index + 2) % Math.max(images.length, 1)];
 
   return (
-    <section className="relative overflow-hidden bg-paper pb-16 pt-28 sm:pt-32 lg:pb-24">
+    <section className="relative overflow-hidden bg-paper pb-12 pt-24 sm:pt-32 lg:pb-24">
       <div className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-gold-300/30 blur-3xl" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div>
           <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-brand sm:text-sm">
             {h.eyebrow}
@@ -62,38 +62,38 @@ export function Hero({
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.12, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-4 text-balance font-display text-[clamp(2.5rem,5.4vw,4.6rem)] leading-[1.04] text-ink"
+            className="mt-4 text-balance font-display text-[clamp(2.25rem,5.4vw,4.6rem)] leading-[1.04] text-ink"
           >
             {rich(h.title)}
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-6 max-w-xl text-lg leading-relaxed text-ink/70">
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-ink/70">
             {h.lead} {t.brand.slogan}
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }} className="mt-7 flex flex-col gap-3 sm:flex-row">
             <a
               href={whatsappUrl(phone, h.waMessage)}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center justify-center gap-2.5 rounded-full bg-gold-500 px-8 py-4 text-base font-semibold text-night-900 shadow-lg shadow-gold-500/30 transition hover:bg-gold-400"
+              className="flex items-center justify-center gap-2.5 rounded-full bg-gold-500 px-8 py-3.5 text-base font-semibold text-night-900 shadow-lg shadow-gold-500/30 transition hover:bg-gold-400"
             >
               <WhatsAppIcon size={20} /> {h.ctaWhatsapp}
             </a>
-            <Link href="/#passeios" className="flex items-center justify-center rounded-full px-8 py-4 text-base font-semibold text-ink ring-1 ring-ink/25 transition hover:bg-ink hover:text-white">
+            <Link href="/#passeios" className="flex items-center justify-center rounded-full px-8 py-3.5 text-base font-semibold text-ink ring-1 ring-ink/25 transition hover:bg-ink hover:text-white">
               {h.ctaTours}
             </Link>
           </motion.div>
 
-          <motion.ul initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-12 grid max-w-xl grid-cols-2 gap-3">
+          <motion.ul initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-8 grid max-w-xl grid-cols-2 gap-2.5 sm:mt-12 sm:gap-3">
             {stats.map(({ href, icon: Icon, title, text }) => (
               <li key={title}>
-                <Link href={href} className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 ring-1 ring-ink/10 transition hover:ring-cyan-brand/50">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-brand/10 text-cyan-brand">
+                <Link href={href} className="flex h-full items-center gap-2.5 rounded-2xl bg-white px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 ring-1 ring-ink/10 transition hover:ring-cyan-brand/50">
+                  <span className="flex h-9 w-9 shrink-0 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-cyan-brand/10 text-cyan-brand">
                     <Icon size={20} />
                   </span>
                   <span className="leading-tight">
-                    <strong className="block text-sm text-ink">{title}</strong>
-                    <span className="text-xs text-ink/55">{text}</span>
+                    <strong className="block text-[13px] text-ink sm:text-sm">{title}</strong>
+                    <span className="text-[11px] text-ink/55 sm:text-xs">{text}</span>
                   </span>
                 </Link>
               </li>
@@ -101,7 +101,7 @@ export function Hero({
           </motion.ul>
         </div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto w-full max-w-lg">
+        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto w-full max-w-sm sm:max-w-lg">
           <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-sand ring-1 ring-ink/10 shadow-[0_40px_80px_-40px_rgba(6,6,95,0.5)]">
             {images.length === 0 && <DuneScene id="hero" />}
             <AnimatePresence mode="sync">
