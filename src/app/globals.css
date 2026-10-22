@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+/* Paleta da Destino Ideal Turismo: azul-marinho do site, ouro e verde da logo, ciano das lagoas. */
+@theme {
+  /* Azul-marinho do site (#06065f) escurecido pra fundo; ouro da logo; verde-esmeralda do letreiro. */
+  --color-night-950: #040c1a;
+  --color-night-900: #07142b;
+  --color-night-800: #0c2340;
+  --color-night-700: #12325a;
+  --color-night-600: #1a4474;
+
+  --color-gold-300: #ffe69a;
+  --color-gold-400: #ffd048;
+  --color-gold-500: #f5b301;
+  --color-gold-600: #c78f00;
+
+  --color-amber-300: #ffe69a;
+  --color-amber-400: #ffd048;
+  --color-amber-500: #f5b301;
+  --color-amber-600: #c78f00;
+
+  --color-lagoon-400: #22d3e6;
+  --color-lagoon-500: #00a9bd;
+
+  --color-jungle-700: #0b3d2e;
+  --color-jungle-600: #11624a;
+
+  --color-paper: #f7f5ef;
+  --color-sand: #ece6d6;
+  --color-ink: #0c2340;
+  --color-cyan-brand: #0791a5;
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-tenor);
+  --font-label: var(--font-tenor);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-kenburns: kenburns 18s ease-out both;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.2s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes kenburns {
+    from { transform: scale(1.12) translate3d(0, 0, 0); }
+    to { transform: scale(1) translate3d(0, -1.5%, 0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-synthesis-weight: none;
+}
+
+::selection {
+  background: var(--color-gold-500);
+  color: var(--color-ink);
+}
+
+/* Palavra em destaque nos títulos: dourado. */
+.font-display em {
+  font-style: normal;
+  color: var(--color-cyan-brand);
+}
+
+/* Títulos de card e botões: condensada em caixa-alta, como o letreiro dos passeios. */
+@utility font-label {
+  font-family: var(--font-tenor), Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-amber-gradient {
+  background: linear-gradient(100deg, var(--color-amber-500), var(--color-amber-400) 45%, var(--color-amber-300) 60%, var(--color-amber-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility text-gold-gradient {
+  background: linear-gradient(100deg, var(--color-gold-500), var(--color-gold-400) 60%, var(--color-amber-400));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Pincelada dourada que sublinha os títulos (o "risco" do site da marca). */
+@utility brush {
+  background: url("/brand/brush.svg") center bottom / 100% 100% no-repeat;
+}
+
+/* Faixas horizontais da logo (sol listrado). */
+@utility sun-stripes {
+  background-image: repeating-linear-gradient(to bottom, transparent 0 14px, var(--color-paper) 14px 18px);
+}
+
+@utility skeleton {
+  background: linear-gradient(90deg, var(--color-night-800) 25%, var(--color-night-700) 50%, var(--color-night-800) 75%);
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Textura de "papel" dos posts (granulado bem leve) pros blocos de cor. */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
