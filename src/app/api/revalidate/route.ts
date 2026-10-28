@@ -16,12 +16,14 @@ export async function POST(req: NextRequest) {
   revalidateTag("dunastour", { expire: 0 });
   // As páginas geradas no build (sem acesso à API, com o catálogo local) expiram pelo caminho, não pela tag.
   revalidatePath("/[lang]", "layout");
+  revalidatePath("/sitemap.xml");
 
   const origin = req.nextUrl.origin;
   after(async () => {
     const [tours, packages] = await Promise.all([getTours("pt"), getPackages()]);
     const pages = ["", "/passeios", "/galeria", ...tours.map((t) => `/passeios/${t.id}`), ...packages.map((p) => `/pacotes/${p.id}`)];
     const paths = locales.flatMap((l) => pages.map((p) => `/${l}${p}`));
+    paths.push("/sitemap.xml");
     await Promise.allSettled(paths.map((p) => fetch(`${origin}${p}`, { cache: "no-store", signal: AbortSignal.timeout(20_000) })));
   });
 

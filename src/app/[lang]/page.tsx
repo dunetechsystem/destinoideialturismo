@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { getAgency, getLagoons, getPackages, getReviews, getTours } from "@/lib/dunastour/server";
 import { getGallery } from "@/lib/dunastour/gallery";
 import { agencyInfo } from "@/lib/agency-info";
+import { site } from "@/config/site";
 import { Hero } from "@/components/home/Hero";
 import { Marquee } from "@/components/home/Marquee";
 import { Featured } from "@/components/home/Featured";
@@ -24,7 +25,7 @@ import { Reveal, SectionTitle } from "@/components/ui/Reveal";
 export const revalidate = 300;
 
 export default async function Home() {
-  const { t } = await getI18n();
+  const { t, lang } = await getI18n();
   const [agency, tours, packages, reviews, lagoons, gallery] = await Promise.all([
     getAgency(),
     getTours(),
@@ -46,8 +47,28 @@ export default async function Home() {
     : null;
   const faqs = agency?.checkoutPage?.faqs.length ? [...agency.checkoutPage.faqs, ...t.faq.items] : t.faq.items;
 
+  // Nome do site e logo nos resultados do Google.
+  const card = `${site.url}/og.jpg`;
+  const jsonLd = [
+    { "@context": "https://schema.org", "@type": "WebSite", name: site.name, url: site.url, inLanguage: lang },
+    { "@context": "https://schema.org", "@type": "WebPage", url: `${site.url}/${lang}`, name: site.name, primaryImageOfPage: card },
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}/brand/mark.png`,
+      image: card,
+      telephone: info.phone,
+      address: { "@type": "PostalAddress", streetAddress: site.address, addressLocality: info.city, addressRegion: "MA", addressCountry: "BR" },
+      geo: { "@type": "GeoCoordinates", latitude: site.coords.lat, longitude: site.coords.lng },
+      sameAs: [`https://www.instagram.com/${info.instagram}`, site.airbnb, site.tiktok && `https://www.tiktok.com/@${site.tiktok}`].filter(Boolean),
+    },
+  ];
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Hero
         images={heroImages}
         tourCount={tours.length + packages.length}
