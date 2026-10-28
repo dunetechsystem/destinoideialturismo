@@ -5,7 +5,9 @@
  */
 export const site = {
   name: "Destino Ideal Turismo",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.NODE_ENV === "production" ? "https://destinoidealturismo.com.br" : "http://localhost:3000"),
 
   /** Base em Barreirinhas (pino do mapa). */
   coords: { lat: -2.7696492671966553, lng: -42.84977340698242 },
