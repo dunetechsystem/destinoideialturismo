@@ -26,3 +26,11 @@ export function TikTokIcon({ className, size = 20 }: Props) {
     </svg>
   );
 }
+
+export function AirbnbIcon({ className, size = 20 }: Props) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="none" stroke="currentColor" strokeWidth={1.9} strokeLinejoin="round" className={className} aria-hidden>
+      <path d="M12 16.4c-1.4-1.8-2.6-3.6-2.6-5a2.6 2.6 0 0 1 5.2 0c0 1.4-1.2 3.2-2.6 5Zm0 0c1.9 2.3 3.6 3.6 5.1 3.6a3 3 0 0 0 2.6-4.4L13.7 3.9a2 2 0 0 0-3.4 0L4.3 15.6A3 3 0 0 0 6.9 20c1.5 0 3.2-1.3 5.1-3.6Z" />
+    </svg>
+  );
+}

@@ -16,6 +16,8 @@ export const site = {
   /** Segundo número da agência (rodapé, chat e localização). */
   secondaryWhatsapp: "+55 (98) 99109-7552",
   fallbackInstagram: "destino_ideal_turismo",
+  /** Experiência da agência no Airbnb (botão flutuante). Vazio = esconde o botão. */
+  airbnb: "https://www.airbnb.com.br/experiences/7278942",
   /** Vazio = esconde o ícone do TikTok. */
   tiktok: "",
 

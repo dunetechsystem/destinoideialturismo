@@ -14,7 +14,8 @@ import { DiMark } from "@/components/ui/Logo";
 
 /**
  * Abertura clara: título e botões à esquerda; à direita a foto em arco (o arco da logo) trocando sozinha,
- * com um círculo de foto e o selo da agência sobrepostos.
+ * com um círculo de foto e o selo da agência sobrepostos. No celular o arco sai e as fotos viram o fundo da
+ * abertura inteira, com o texto em branco por cima.
  */
 export function Hero({
   images,
@@ -51,22 +52,33 @@ export function Hero({
   const side = images[(index + 2) % Math.max(images.length, 1)];
 
   return (
-    <section className="relative overflow-hidden bg-paper pb-12 pt-24 sm:pt-32 lg:pb-24">
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[34rem] w-[34rem] rounded-full bg-gold-300/30 blur-3xl" />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+    <section className="hero-dark relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-night-900 pb-10 pt-28 sm:pt-32 lg:block lg:min-h-0 lg:bg-paper lg:pb-24">
+      <div className="absolute inset-0 lg:hidden">
+        {images.length === 0 && <DuneScene id="hero-mobile" />}
+        <AnimatePresence mode="sync" initial={false}>
+          {images[index] && (
+            <motion.div key={images[index]} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.4 }}>
+              <Image src={images[index]} alt="" fill priority sizes="100vw" className="animate-kenburns object-cover" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-b from-night-900/20 via-night-900/35 to-night-900/90" />
+      </div>
+      <div className="pointer-events-none absolute -right-40 -top-40 hidden h-[34rem] w-[34rem] rounded-full bg-gold-300/30 blur-3xl lg:block" />
+      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div>
-          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-xs font-semibold uppercase tracking-[0.24em] text-cyan-brand sm:text-sm">
+          <motion.p initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="text-xs font-semibold uppercase tracking-[0.24em] text-gold-300 drop-shadow sm:text-sm lg:text-cyan-brand lg:drop-shadow-none">
             {h.eyebrow}
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.12, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-4 text-balance font-display text-[clamp(2.25rem,5.4vw,4.6rem)] leading-[1.04] text-ink"
+            className="mt-4 text-balance font-display text-[clamp(2.5rem,5.4vw,4.6rem)] leading-[1.04] text-white drop-shadow-lg lg:text-ink lg:drop-shadow-none"
           >
             {rich(h.title)}
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-ink/70">
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="mt-5 max-w-xl text-base leading-relaxed text-white/85 sm:text-lg lg:text-ink/70">
             {h.lead} {t.brand.slogan}
           </motion.p>
 
@@ -79,7 +91,7 @@ export function Hero({
             >
               <WhatsAppIcon size={20} /> {h.ctaWhatsapp}
             </a>
-            <Link href="/#passeios" className="flex items-center justify-center rounded-full px-8 py-3.5 text-base font-semibold text-ink ring-1 ring-ink/25 transition hover:bg-ink hover:text-white">
+            <Link href="/#passeios" className="flex items-center justify-center rounded-full bg-white/10 px-8 py-3.5 text-base font-semibold text-white ring-1 ring-white/50 backdrop-blur-sm transition hover:bg-white hover:text-ink lg:bg-transparent lg:text-ink lg:ring-ink/25 lg:backdrop-blur-none lg:hover:bg-ink lg:hover:text-white">
               {h.ctaTours}
             </Link>
           </motion.div>
@@ -87,7 +99,7 @@ export function Hero({
           <motion.ul initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-8 grid max-w-xl grid-cols-2 gap-2.5 sm:mt-12 sm:gap-3">
             {stats.map(({ href, icon: Icon, title, text }) => (
               <li key={title}>
-                <Link href={href} className="flex h-full items-center gap-2.5 rounded-2xl bg-white px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 ring-1 ring-ink/10 transition hover:ring-cyan-brand/50">
+                <Link href={href} className="flex h-full items-center gap-2.5 rounded-2xl bg-white/95 px-3 py-2.5 backdrop-blur lg:bg-white sm:gap-3 sm:px-4 sm:py-3 ring-1 ring-ink/10 transition hover:ring-cyan-brand/50">
                   <span className="flex h-9 w-9 shrink-0 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-cyan-brand/10 text-cyan-brand">
                     <Icon size={20} />
                   </span>
@@ -101,10 +113,10 @@ export function Hero({
           </motion.ul>
         </div>
 
-        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto w-full max-w-sm sm:max-w-lg">
+        <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2, duration: 1, ease: [0.22, 1, 0.36, 1] }} className="relative mx-auto hidden w-full max-w-sm sm:max-w-lg lg:block">
           <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-[2rem] bg-sand ring-1 ring-ink/10 shadow-[0_40px_80px_-40px_rgba(6,6,95,0.5)]">
             {images.length === 0 && <DuneScene id="hero" />}
-            <AnimatePresence mode="sync">
+            <AnimatePresence mode="sync" initial={false}>
               {images[index] && (
                 <motion.div key={images[index]} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.4 }}>
                   <Image src={images[index]} alt="" fill priority sizes="(max-width: 1024px) 90vw, 520px" className="animate-kenburns object-cover" />

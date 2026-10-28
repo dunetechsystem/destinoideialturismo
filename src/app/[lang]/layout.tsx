@@ -11,6 +11,7 @@ import { LocaleProvider } from "@/i18n/client";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Chat } from "@/components/chat/Chat";
+import { SocialDock } from "@/components/layout/SocialDock";
 import { chatTours } from "@/components/chat/chat-tours";
 
 // Tenor Sans = títulos e letreiro dos cards (a mesma do site da agência); Inter = textos.
@@ -65,6 +66,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
           <Header info={info} />
           <main>{children}</main>
           <Footer info={info} />
+          <SocialDock info={info} />
           <Chat info={info} tours={chatTours(tours, lang)} />
         </LocaleProvider>
       </body>

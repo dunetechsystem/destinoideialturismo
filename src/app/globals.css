@@ -84,6 +84,13 @@ body {
   color: var(--color-cyan-brand);
 }
 
+/* Abertura no celular: título branco sobre a foto, destaque em dourado. */
+@media (max-width: 1023.98px) {
+  .hero-dark .font-display em {
+    color: var(--color-gold-400);
+  }
+}
+
 /* Títulos de card e botões: condensada em caixa-alta, como o letreiro dos passeios. */
 @utility font-label {
   font-family: var(--font-tenor), Georgia, serif;
